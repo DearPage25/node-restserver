@@ -6,7 +6,34 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
 app.get('/usuario', function (req, res) {
-    res.json('get Usuario');
+    let desde = req.query.desde || 0;
+    desde = Number(desde);
+    
+    let limite = req.query.limite || 5;
+    limite = Number(limite);
+
+
+    User.find({estado: true}, 'nombre email role img estado google')
+        .skip(desde)
+        .limit(limite)
+        .exec( (err, usuario) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            };
+
+            User.countDocuments({estado: true}, (err, conteo) => {
+                res.json({
+                    ok: true,
+                    usuario,
+                    total_register: conteo
+                });
+            });
+
+            
+        })
 });
 app.post('/usuario', function (req, res) {
     let body = req.body;
@@ -51,9 +78,36 @@ app.put('/usuario/:id', function (req, res) {
     });
 
 });
-app.delete('/usuario', function (req, res) {
-    res.json('delete Usuario');
+app.delete('/usuario/:id', function (req, res) {
+    
+    let id = req.params.id;
+
+    // User.findByIdAndRemove(id, (err, usuarioBorrado) => {
+    User.findByIdAndUpdate(id, {estado: true}, { new: true, context: 'query' }, (err, usuarioDB) => {    
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        };
+        // if (!usuarioBorrado) {
+        //     return res.status(400).json({
+        //         ok: false,
+        //         err: {
+        //             message: 'Usuario no encontrado'
+        //         }
+        //     });
+        // };
+
+        res.json({
+            ok:true,
+            usuarioDB
+        });
+
+    });
 });
+
+
 
 
 module.exports = app;

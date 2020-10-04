@@ -10,10 +10,10 @@ const configMongo = {
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
     useCreateIndex: true,
-    
+    useFindAndModify: false
 }
 
-mongoose.connect('mongodb://localhost:27017/cafe', configMongo, (err, res) => {
+mongoose.connect(process.env.URLDB, configMongo, (err, res) => {
     if( err ) console.log(err);
 
     console.log('Base de datos arriba');
