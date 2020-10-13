@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+//connection DB
 const configMongo = {
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
@@ -24,7 +25,7 @@ mongoose.connect(process.env.URLDB, configMongo, (err, res) => {
 
     console.log('Base de datos arriba');
 });
-
+//
 
 
 
@@ -32,11 +33,14 @@ app.use(bodyParser.urlencoded({ extended: false}))
 
 app.use(bodyParser.json())
 
-app.use(require('./routes/usuario-routes'))
+
+//config. routes.
+app.use(require('./routes/index-routes'))
+//
 
 
-
-
+//listen to server PORT
 app.listen(process.env.PORT, ()=> {
     console.log('Te escucho en el puerto: ', process.env.PORT);
 });
+//
