@@ -6,10 +6,9 @@
 
 require('./config/config')
 const express = require('express');
-const parser = require('body-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const path = require('path');
 const app = express();
 
 //connection DB
@@ -25,7 +24,7 @@ mongoose.connect(process.env.URLDB, configMongo, (err, res) => {
 
     console.log('Base de datos arriba');
 });
-//
+
 
 
 
@@ -36,11 +35,10 @@ app.use(bodyParser.json())
 
 //config. routes.
 app.use(require('./routes/index-routes'))
-//
 
-
+//public
+app.use(express.static(path.resolve(__dirname, '../public')));
 //listen to server PORT
 app.listen(process.env.PORT, ()=> {
     console.log('Te escucho en el puerto: ', process.env.PORT);
 });
-//
