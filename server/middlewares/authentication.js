@@ -19,6 +19,7 @@ let VerificaToken = (req, res, next) => {
         } 
 
         req.usuario = decoded.usuario;
+        
         next();
     });
 }
@@ -29,7 +30,6 @@ let VerificaToken = (req, res, next) => {
 
 let VerificaRole = (req, res, next) => {
     let usuario = req.usuario;
-    console.log(usuario.role);
     if(usuario.role === 'ADMIN_ROLE') {
         next();
     } else {

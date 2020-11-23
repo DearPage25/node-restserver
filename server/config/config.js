@@ -17,7 +17,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 // Fecha de vencimiento del Token
 //===============================
 
-process.env.TOKEN_EXP = 60 * 60 * 24 * 30;
+process.env.TOKEN_EXP = '48h';
 
 
 //==========================

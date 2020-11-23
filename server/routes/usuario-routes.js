@@ -75,6 +75,7 @@ app.put('/usuario/:id',  [VerificaToken, VerificaRole], (req, res) => {
         }
 
         res.json({
+            ok: true,
             usuarioDB
         });
     });
