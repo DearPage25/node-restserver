@@ -44,5 +44,26 @@ let VerificaRole = (req, res, next) => {
 
 }
 
+//==========================
+// Verificador de Img
+//==========================
 
-module.exports = {VerificaToken, VerificaRole};
+let VerificaTokenImg = (req, res, next) => {
+    let token = req.query.token;
+    jwt.verify(token, process.env.SEED, (err, decoded) => {
+        
+        if ( err ) {
+            return res.status(401).json({
+                ok: false,
+                err:{
+                    token: "Token no válido"
+                }
+            });
+        } 
+        req.usuario = decoded.usuario;
+        next();
+    });
+}
+
+
+module.exports = {VerificaToken, VerificaRole, VerificaTokenImg};

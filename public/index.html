@@ -9,27 +9,10 @@
 </head>
 <body>
     
+    <!-- <img src="http://localhost:3000/imagen/usuarios/5f747024b77ad72c28437f5e-105.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiOiJBRE1JTl9ST0xFIiwiZXN0YWRvIjp0cnVlLCJnb29nbGUiOmZhbHNlLCJfaWQiOiI1Zjc0NzAyNGI3N2FkNzJjMjg0MzdmNWUiLCJub21icmUiOiJ0ZXN0MSIsImVtYWlsIjoidGVzdDFAZ21haWwuY29tIiwiX192IjowLCJpbWciOiI1Zjc0NzAyNGI3N2FkNzJjMjg0MzdmNWUtMTA1LmpwZyJ9LCJpYXQiOjE2MDgwNjc2OTQsImV4cCI6MTYwODI0MDQ5NH0.hAI7vpoie0AsSPwt7AZ6LllyiXlXh3-E2R43dumt1PI" alt=""> -->
 
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <Script>
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-            
-            var id_token = googleUser.getAuthResponse().id_token;
-            console.log(id_token);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/google');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onload = function() {
-            console.log('Signed in as: ' + xhr.responseText);
-            };
-            xhr.send('idtoken=' + id_token);
-        }
-    </Script>
+    
     <a href="#" onclick="signOut();">Sign out</a>
     <script>
     function signOut() {
@@ -40,5 +23,25 @@
         
     }
     </script>
+
+<Script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log(id_token);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/google');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send('idtoken=' + id_token);
+    }
+</Script>
 </body>
 </html>
